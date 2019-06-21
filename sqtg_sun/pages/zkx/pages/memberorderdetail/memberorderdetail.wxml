@@ -1,0 +1,57 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view>
+		<view class="olist">
+			<view class="olTop">
+				<view>
+					<text>{{olist.userCount}}</text>人团，共{{olist.goodsSum}}件商品				</view>
+				<block wx:if="{{olist.state==2}}">
+					<view>待配送</view>
+				</block>
+				<block wx:if="{{olist.state==3}}">
+					<view>配送中</view>
+				</block>
+				<block wx:if="{{olist.state==4}}">
+					<view>待自提</view>
+				</block>
+				<block wx:if="{{olist.state==5}}">
+					<view>已完成</view>
+				</block>
+			</view>
+			<view class="olCont">
+				<image class="olcLef" mode="aspectFill" src="{{imgroot}}{{olist.pic}}"></image>
+				<view class="olcRig">
+					<view class="olcName">
+						<view>{{olist.name}}</view>
+						<view>￥{{olist.price}}</view>
+					</view>
+					<block wx:for="{{olist.attrs}}" wx:key="attrs" wx:for-item="attrs" wx:for-index="index" >
+						<view class="olcSpecification">
+							<view>规格：{{attrs.attr_names}}</view>
+							<view>×{{attrs.num}}</view>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+		<view class="spellMember">
+			<block wx:for="{{olist.users}}" wx:key="users" wx:for-item="item" wx:for-index="index" >
+				<view class="smList">
+					<image class="smlLef" src="{{item.user.img}}"></image>
+					<view class="smlRig">
+						<view class="smlrTop">{{item.user.name}}</view>
+						<view class="smlrBot">
+							<view bindtap="onPhoneTab" class="smlrPhone" data-index="{{index}}">联系电话：{{item.user.tel}}<image src="../../../../../zhy/resource/images/call.png"></image>
+							</view>
+							<view>数量：{{item.num}}</view>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>

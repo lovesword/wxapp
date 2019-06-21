@@ -1,0 +1,52 @@
+<!--   time:2018-12-22 16:34:47 -->
+<view class="headerWrap">
+	<image class="indexBanner" mode="aspectFill" src="../../../../../zhy/resource/images/indexBanner.png"></image>
+	<view class="header">
+		<view class="headerLef">
+			<view class="name">当前位置</view>
+			<block wx:if="{{choiceaddress.address}}">
+				<view class="address">{{choiceaddress.address}}</view>
+			</block>
+			<block wx:if="{{!choiceaddress.address}}">
+				<view class="address">最近地址</view>
+			</block>
+		</view>
+		<view bindtap="chooseaddress" class="headerRig">选择地址</view>
+	</view>
+</view>
+<form bindsubmit="formSubmit">
+	<view class="nlTit">
+		<view>附近团长</view>
+		<input bindconfirm="searchBtn" class="headSearch" placeholder="请输入团长姓名或小区名称" type="text" value="{{headValue}}"></input>
+	</view>
+</form>
+<block wx:for="{{olist}}" wx:key="nlList" wx:for-item="item" wx:for-index="index" >
+	<view bindtap="setAddress" class="nlList" data-address="{{item}}">
+		<image class="nllistLef" mode="aspectFill" src="{{item.pic}}"></image>
+		<view class="nllistCont">
+			<view class="nlName">
+				<view>团长：{{item.name}}</view>
+				<block wx:if="{{item.distance<=5000}}">
+					<view>距离您{{item.distance}}m</view>
+				</block>
+				<block wx:if="{{item.distance>5000}}">					<view>距离您{{item.distance/1000}}km</view>
+				</block>
+			</view>
+			<view class="nlCommunity">{{item.community}}</view>
+			<view class="nlAddress">取货地址：{{item.address}}</view>
+		</view>
+		<image class="nlRig" src="../../../../../zhy/resource/images/arrowRig.png"></image>
+	</view>
+</block>
+<block wx:if="{{popAllow}}">
+	<view class="popAllow">
+		<button bindopensetting="handler" class="choose-address" openType="openSetting">
+			<view class="ahLef">
+				<view>检测到您没打开定位权限，是否去设置打开？</view>
+			</view>
+		</button>
+	</view>
+</block>
+<block wx:if="{{!info.is_leader&&!info.is_leaderuser}}">
+	<navigator class="jionBtn" url="/sqtg_sun/pages/zkx/pages/headapplication/headapplication">申请成为团长</navigator>
+</block>

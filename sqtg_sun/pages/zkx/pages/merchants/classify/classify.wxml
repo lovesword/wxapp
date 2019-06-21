@@ -1,0 +1,20 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view>
+		<block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" >
+			<view class="searchItem">
+				<view bindtap="toAllgoods" class="searchFirst" data-id="{{item.id}}">{{item.name}}<image src="/sqtg_sun/pages/zkx/resource/images/arrowRig.png"></image>
+				</view>
+				<view class="searchSecond">
+					<block wx:for="{{item.childs}}" wx:for-item="itm" wx:for-index="index" >
+						<view bindtap="toAllgoods" class="siList" data-id="{{item.id}}">{{itm.name}}</view>
+					</block>
+				</view>
+			</view>
+		</block>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>

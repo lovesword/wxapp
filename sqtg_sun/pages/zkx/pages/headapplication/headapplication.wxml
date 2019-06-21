@@ -1,0 +1,66 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/wxParse/wxParse.wxml"  />
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<view class="{{padding?'foot-padding':''}}">
+	<form bindsubmit="formBindsubmit" reportSubmit="true">
+		<view class="heiRad90">
+			<view>姓名：</view>
+			<input name="leadername" placeholder="请输入您的姓名" placeholderClass="placeh" type="text" value="{{myleader.name}}"></input>
+			<input hidden name="id" value="{{myleader.id}}"></input>
+			<input hidden name="latitude" value="{{myleader.latitude}}"></input>
+			<input hidden name="longitude" value="{{myleader.longitude}}"></input>
+		</view>
+		<view bindtap="chooseaddress" class="heiRad90">
+			<view>定位：</view>
+			<input disabled name="leaderchoice" placeholder="请选择地区" placeholderClass="placeh" type="text" value="{{coordinates}}"></input>
+		</view>
+		<view class="heiRad90">
+			<view>详细地址：</view>
+			<input class="getLocatoin" name="leaderaddress" placeholder="请填写详细地址" placeholderClass="placeh" type="text" value="{{address}}"></input>
+		</view>
+		<view class="heiRad90">
+			<view>小区名称：</view>
+			<input class="getLocatoin" name="leadercommunity" placeholder="请填写小区名称" placeholderClass="placeh" type="text" value="{{myleader.leadercommunity}}"></input>
+		</view>
+		<view class="heiRad90">
+			<view>联系方式：</view>
+			<input name="leadertel" placeholder="请填写您的联系方式" placeholderClass="placeh" type="text" value="{{myleader.tel}}"></input>
+		</view>
+		<block wx:if="{{hasread}}">
+			<view bindtap="tapreadFirst" class="readMe">【请先点击阅读申请规则】</view>
+		</block>
+		<block wx:if="{{!hasread}}">
+			<view class="readMegay">【我已经阅读并了解】</view>
+		</block>
+		<block wx:if="{{hasreadWind}}">
+			<view class="mask"></view>
+		</block>
+		<block wx:if="{{hasreadWind}}">
+			<view class="rule">
+				<view class="ruleTit">成为团长协议</view>
+				<view class="ruleCont">
+					<template  data="{{wxParseData:detail.nodes}}" is="wxParse" />
+				</view>
+				<view bindtap="tapRulebtn" class="ruleBtn">我已阅读</view>
+			</view>
+		</block>
+		<block wx:if="{{!myleader.check_state}}">
+			<button class="btnRedBig" formType="submit">确定提交</button>
+		</block>
+		<block wx:if="{{myleader.check_state==1}}">
+			<button class="btnGrayBig">待审核</button>
+		</block>
+		<block wx:if="{{myleader.check_state==3}}">
+			<button class="btnRedBig" formType="submit">重新提交</button>
+		</block>
+		<block wx:if="{{myleader.check_state==3}}">
+			<view class="reason bgfRad">审核失败原因：{{myleader.fail_reason}}</view>
+		</block>
+	</form>
+</view>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>
+<block wx:if="{{showFoot}}">
+	<com-footer bind:padding="getPadding" cartCount="{{cartCount}}"></com-footer>
+</block>

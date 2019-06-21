@@ -1,0 +1,107 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view class="{{padding?'foot-padding':''}}">
+		<form bindsubmit="subOrder" reportSubmit="true">
+			<view class="nlTit fw600">
+				<view>取货地址：</view>
+				<view>{{linkaddress.community}}</view>
+			</view>
+			<view class="linkaddress">
+				<view class="laTop">
+					<view>联系人：</view>
+					<image src="{{linkaddress.pic}}"></image>
+					<view>{{linkaddress.name}}</view>
+				</view>
+				<view bindtap="onPhoneTab" class="laBot">联系电话：{{linkaddress.tel}}<image src="../../../../../zhy/resource/images/call.png"></image>
+				</view>
+				<view class="laBot">详细地址：{{linkaddress.address}}</view>
+			</view>
+			<image class="colorLine" src="../../../../../zhy/resource/images/colorLine.png"></image>
+			<block wx:for="{{goodses}}" wx:key="goodses" wx:for-item="item" wx:for-index="index" >
+				<view class="goods">
+					<image class="gLef" mode="aspectFill" src="{{imgroot}}{{item.pic}}"></image>
+					<view class="gRig">
+						<view class="grTop">
+							<view>{{item.name}}</view>
+							<view>￥{{item.price}}</view>
+						</view>
+						<view class="grCont">
+							<block wx:if="{{item.attr_names}}">
+								<view>规格：{{item.attr_names}}</view>
+							</block>
+							<view>×{{item.num}}</view>
+						</view>
+						<view class="grBot">
+							<view>小计：</view>
+							<view>¥{{item.amount}}</view>
+						</view>
+					</view>
+				</view>
+			</block>
+			<view bindtap="coupons" class="coupons">
+				<view>优惠券</view>
+				<view>{{!coupon.money?'未选择优惠券':'已使用1张'}}</view>
+				<image src="../../../../../zhy/resource/images/arrowRig.png"></image>
+			</view>
+			<view class="sgoFooter">
+				<view class="sfLef">
+					<view>总金额：¥{{allprice}}</view>
+					<view>实付金额：<text class="txtRed">¥{{actualPrice}}</text>
+					</view>
+				</view>
+				<button class="sgoBtn" formType="submit">{{buttonName?buttonName:'提交'}}</button>
+			</view>
+		</form>
+		<block wx:if="{{coupon.money}}">
+			<view class="footerCoupons">优惠券已减{{coupon.money}}元</view>
+		</block>
+		<block wx:if="{{flag}}">
+			<view class="mask"></view>
+		</block>
+		<block wx:if="{{flag}}">
+			<view class="couponsItem">
+				<view>
+					<image bindtap="close" class="ciClose" src="../../../../../zhy/resource/images/close.png"></image>
+				</view>
+				<view class="ciTit">优惠券</view>
+				<view class="ciCont">
+					<block wx:for="{{coupons}}" wx:key="coupons" wx:for-item="item" wx:for-index="index" >
+						<view bindtap="{{item.can_use?'getCoupons':''}}" class="ciList" data-ids="{{item.id}}" data-index="{{index}}">
+							<view class="{{!item.can_use?'cilLefgray':'cilLef'}}">
+								<view>¥{{item.money}}</view>
+								<view>满{{item.use_money}}元可用</view>
+							</view>
+							<view class="cilRig">
+								<view>{{item.name}}</view>
+								<view>全平台通用</view>
+								<view>有效期：{{item.begin_date}}-{{item.end_date}}</view>
+							</view>
+						</view>
+					</block>
+				</view>
+			</view>
+		</block>
+	</view>
+</block>
+<block wx:if="{{phoneGrant}}">
+	<view bindtap="phoneGrant" class="isMaskPhone"></view>
+</block>
+<block wx:if="{{phoneGrant}}">
+	<view id="isPhone">
+		<view class="loginTitle">微信授权</view>
+		<view class="shopImg">
+			<block wx:if="{{setting.pt_pic}}">
+				<image src="{{imgroot}}{{setting.pt_pic}}"></image>
+			</block>
+			<span>{{shop.pt_name}}将获取你的手机号</span>
+		</view>
+		<view class="isLoginBtn">
+			<navigator bindtap="toSetphonenum" url="/sqtg_sun/pages/zkx/pages/setphonenum/setphonenum?id=classfiyorder">取消</navigator>
+			<button bindgetphonenumber="getPhoneNumber" openType="getPhoneNumber">同意</button>
+		</view>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>

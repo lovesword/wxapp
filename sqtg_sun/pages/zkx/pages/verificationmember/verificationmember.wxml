@@ -1,0 +1,40 @@
+<!--   time:2018-12-22 16:34:47 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view class="{{padding?'foot-padding':''}}">
+		<form bindsubmit="formSubmit">
+			<input bindconfirm="searchBtn" class="vmSearch" placeholder="输入用户ID或者手机号" type="text"></input>
+		</form>
+		<view class="vmTit">核销员列表</view>
+		<view class="oItem">
+			<block wx:for="{{olist}}" wx:key="{{item.id}}" wx:for-item="item" wx:for-index="index" >
+				<block wx:if="{{!status}}">
+					<view class="olist">
+						<image class="lef" src="{{item.img}}"></image>
+						<view class="cont">
+							<view class="name">{{item.name}}</view>
+							<view class="number">ID：{{item.id}}</view>
+						</view>
+						<view bindtap="addMember" class="rig" data-memid="{{item.id}}">添加</view>
+					</view>
+				</block>
+			</block>
+			<block wx:for="{{olist}}" wx:key="{{item.id}}" wx:for-item="item" wx:for-index="index" >
+				<block wx:if="{{status}}">
+					<view class="olist">
+						<image class="lef" src="{{item.img}}"></image>
+						<view class="cont">
+							<view class="name">{{item.name}}</view>
+							<view class="number">ID：{{item.user_id}}</view>
+						</view>
+						<view bindtap="deleteMember" class="rig" data-leaderuserid="{{item.id}}">删除</view>
+					</view>
+				</block>
+			</block>
+		</view>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>
+<com-footer bind:padding="getPadding"></com-footer>

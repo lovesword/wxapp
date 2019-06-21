@@ -1,0 +1,47 @@
+<!--   time:2018-12-22 16:34:47 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view>
+		<view class="swiper-tab">
+			<block wx:for="{{nav}}" wx:for-item="item" wx:for-index="index" >
+				<view bindtap="swichNav" class="tab-item {{curHdIndex==item.status?'active':''}}" data-status="{{item.status}}">{{item.title}}</view>
+			</block>
+		</view>
+		<block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" >
+			<view class="orderItem">
+				<view>
+					<view class="oiTit">
+						<view class="flexSB">
+							<view>订单号：{{item.orderformid}}</view>
+							<view>{{item.create_time}}</view>
+						</view>
+					</view>
+					<block wx:for="{{item.orderdetails}}" wx:for-item="itm" wx:for-index="index" >
+						<view bindtap="toOrderDetail" class="orderList" data-id="{{item.id}}">
+							<image class="goodsImg" mode="aspectFill" src="{{imgroot}}{{itm.pic}}"></image>
+							<view class="flex1 olRig">
+								<view class="order-cont">
+									<view class="goodsname ellipsis">{{itm.gname}}</view>
+									<block wx:if="{{itm.attr_list!=''}}">
+										<view class="c922">规格：{{itm.attr_list}}</view>
+									</block>
+									<view class="txtRed30">￥{{itm.total_price}}</view>
+								</view>
+								<view class="c922">X {{itm.num}}</view>
+								<block wx:if="{{item.order_status==3&&itm.is_pingjia==0}}">
+									<view bindtap="toComment" class="to-comment" data-id="{{itm.id}}" data-ids="{{item.id}}">待评价</view>
+								</block>
+							</view>
+						</view>
+					</block>
+				</view>
+				<view class="olBot">
+					<view class="flex1">合计：￥{{item.goods_total_price}}</view>
+				</view>
+			</view>
+		</block>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>

@@ -1,0 +1,124 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view class="{{padding?'foot-padding':''}}">
+		<view class="header">
+			<image bindtap="myScan" class="scan" src="../../../../../zhy/resource/images/scan.png"></image>
+			<image class="headerLef" mode="aspectFill" src="{{myleader.pic}}"></image>
+			<view class="haderRig">
+				<view class="name">团长：{{myleader.name}}</view>
+				<view class="trange">{{myleader.community}}</view>
+				<view class="address">{{myleader.address}}</view>
+			</view>
+		</view>
+		<view class="myOrder">
+			<view class="myOrderTit">
+				<view>团员订单</view>
+				<navigator url="/sqtg_sun/pages/zkx/pages/memberorder/memberorder?id=2&myleaderid={{myleader.id}}">查看全部</navigator>
+				<image src="../../../../../zhy/resource/images/arrowRig.png"></image>
+			</view>
+			<view class="myOrderCont">
+				<navigator class="mocList1" url="/sqtg_sun/pages/zkx/pages/memberorder/memberorder?id=2&myleaderid={{myleader.id}}">
+					<image src="../../../../../zhy/resource/images/my/order2.png"></image>
+					<view>待配送</view>
+					<block wx:if="{{myleader.order_count.state2}}">
+						<text class="orderCount">{{myleader.order_count.state2}}</text>
+					</block>
+				</navigator>
+				<navigator class="mocList1" url="/sqtg_sun/pages/zkx/pages/memberorder/memberorder?id=3&myleaderid={{myleader.id}}">
+					<image src="../../../../../zhy/resource/images/my/order3.png"></image>
+					<view>配送中</view>
+					<block wx:if="{{myleader.order_count.state3}}">
+						<text class="orderCount">{{myleader.order_count.state3}}</text>
+					</block>
+				</navigator>
+				<navigator class="mocList1" url="/sqtg_sun/pages/zkx/pages/memberorder/memberorder?id=4&myleaderid={{myleader.id}}">
+					<image src="../../../../../zhy/resource/images/my/order4.png"></image>
+					<view>待自提</view>
+					<block wx:if="{{myleader.order_count.state4}}">
+						<text class="orderCount">{{myleader.order_count.state4}}</text>
+					</block>
+				</navigator>
+				<navigator class="mocList1" url="/sqtg_sun/pages/zkx/pages/memberorder/memberorder?id=5&myleaderid={{myleader.id}}">
+					<image src="../../../../../zhy/resource/images/my/order5.png"></image>
+					<view>已完成</view>
+				</navigator>
+			</view>
+		</view>
+		<view class="headTable">
+			<view class="htList">
+				<view class="htTit">今日订单</view>
+				<view class="htNum">{{myleader.today_count}}</view>
+			</view>
+			<view class="htList">
+				<view class="htTit">昨日订单</view>
+				<view class="htNum">{{myleader.yesterday_count}}</view>
+			</view>
+			<view class="htList">
+				<view class="htTit">累计订单</view>
+				<view class="htNum">{{myleader.total_count}}</view>
+			</view>
+		</view>
+		<block wx:if="{{myleader.is_leader}}">
+			<view class="myFinance">
+				<view class="myOrderTit">我的财务</view>
+				<view class="myfCont flexAlignc">
+					<view class="myfContLef flexAlignc">
+						<view class="myflItem">
+							<view>{{myleader.today_sum||0}}</view>
+							<view>今日收入</view>
+						</view>
+						<view class="myflItem">
+							<view>{{myleader.yesterday_sum||0}}</view>
+							<view>昨日收入</view>
+						</view>
+						<block wx:if="{{storeinfo.id!=0}}">
+							<view class="myflItem">
+								<view>{{myleader.total_sum||0}}</view>
+								<view>累计收入</view>
+							</view>
+						</block>
+					</view>
+				</view>
+				<view class="mfBot">
+					<view class="mfbLef">可提现金额：<view>￥{{myleader.money||0}}</view>
+					</view>
+					<block wx:if="{{(myleader.withdraw_switch&&myleader.withdraw_switch!=0)&&myleader.money>0}}">						<navigator class="myfContRig" url="/sqtg_sun/pages/zkx/pages/withdrawal/withdrawal">
+							<view class="withdrawal">提现</view>
+						</navigator>
+					</block>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{myleader.choosegoods_switch==0}}">
+			<view class="nonmyFinance">现在PC后台的【团长设置】--【团长选择商品】是关闭的，请先打开设置。</view>
+		</block>
+		<block wx:if="{{myleader.is_leader&&myleader.choosegoods_switch==1}}">
+			<view class="myFinance">
+				<view class="myOrderTit">商品</view>
+				<view class="goodsCont">
+					<navigator class="addGoodslef" url="/sqtg_sun/pages/zkx/pages/headgoods/headgoods?state=1&leader_id={{myleader.id}}">
+						<view class="v1">{{myleader.goodses.count}}</view>
+						<view>在售商品</view>
+					</navigator>
+					<view class="goodsLine"></view>
+					<view class="addGoodsrig">
+						<navigator class="addGoods" url="/sqtg_sun/pages/zkx/pages/headgoods/headgoods?state=0&leader_id={{myleader.id}}">添加</navigator>
+					</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{myleader.is_leader}}">
+			<view class="verificationMember">
+				<view class="vmLef">核销人员：<text>{{myleader.users.count}}</text>人				</view>
+				<navigator class="vmRig" url="/sqtg_sun/pages/zkx/pages/verificationmember/verificationmember?leader_id={{myleader.id}}">添加核销人员</navigator>
+			</view>
+		</block>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>
+<block wx:if="{{showFoot}}">
+	<com-footer bind:padding="getPadding" cartCount="{{cartCount}}" currURL="/sqtg_sun/pages/zkx/pages/headapplication/headapplication"></com-footer>
+</block>

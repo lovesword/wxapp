@@ -1,0 +1,162 @@
+<view class="{{padding?'foot-padding':''}}">
+    <image class="indexBanner" mode="aspectFill" src="../../../../zhy/resource/images/indexBanner.png"></image>
+    <view class="header">
+        <image class="headerLef" mode="aspectFill" src="{{linkaddress.pic}}"></image>
+        <view class="haderRig">
+            <view class="name">团长：{{linkaddress.name}}</view>
+            <view class="trange">
+                <view>{{linkaddress.community}}</view>
+                <navigator url="/sqtg_sun/pages/zkx/pages/nearleaders/nearleaders">切换</navigator>
+            </view>
+            <view class="address">{{linkaddress.address}}</view>
+        </view>
+    </view>
+    <swiper autoplay circular="true" class="swiper">
+        <swiper-item wx:for="{{banner}}" wx:key="{{index}}">
+            <view bindtap="_onNavTab1" data-index="{{index}}" wx:if="{{item.types==1}}">
+                <image class="banner-img" mode="aspectFill" src="{{item.icon}}"></image>
+            </view>
+            <navigator appId="{{item.appid}}" path="{{item.path}}" target="miniProgram" wx:if="{{item.types==2}}">
+                <image class="banner-img" mode="aspectFill" src="{{item.icon}}"></image>
+            </navigator>
+        </swiper-item>
+    </swiper>
+    <view class="affiche">
+        <image class="afficheIcon" src="../../../../zhy/resource/images/horn.png"></image>
+        <view class="afficheCont">
+            <view class="afficheContTxt">{{index.announcement.title}}</view>
+        </view>
+    </view>
+    <view class="couponsWrap" wx:if="{{coupons.length>0&&index.coupon.index==1}}">
+        <view class="nlTit">领取优惠券</view>
+        <scroll-view class="scrollView coupons" scrollX="true">
+            <view class="disFlex">
+                <view bindtap="onCouponsInfoTab" class="couponsList" data-id="{{item.id}}" data-index="{{index}}" wx:for="{{coupons}}" wx:key="inpages">
+                    <view class="clTit">
+                        <text>立即领取</text>
+                    </view>
+                    <view class="clLine"></view>
+                    <view class="clCont">
+                        <view class="clBigmoney">
+                            <text>¥</text>
+                            <text>{{item.money}}</text>
+                        </view>
+                        <view class="clLitmoney">满{{item.use_money}}元使用</view>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <form bindreset="formReset" bindsubmit="submitform" reportSubmit="true">
+        <scroll-view scrollX class="swiper-tab">
+            <view bindtap="swichNav" class="tab-item {{curHdIndex==index?'active':''}}" data-catid="{{item.id}}" data-index="{{index}}" wx:for="{{index.categorys}}" wx:key="goods">
+                <view>{{item.name}}</view>
+                <button class="formidBtn" formType="submit"></button>
+            </view>
+        </scroll-view>
+    </form>
+    <view class="goodsList" wx:for="{{olist}}" wx:key="goodslist">
+        <view class="goodstime">距结束{{zhy.countDown(curr,item.end_time2*1000,2)}}</view>
+        <navigator url="/sqtg_sun/pages/zkx/pages/classifydetail/classifydetail?id={{item.id}}">
+            <image class="goodsImg" mode="aspectFill" src="{{imgroot}}{{item.pic}}"></image>
+        </navigator>
+        <view class="goodsName">
+            <view>拼团商品</view>
+            <view>{{item.name}}</view>
+        </view>
+        <view class="goodsBot">
+            <view class="gbLef">
+                <view class="txtRedbig">¥{{item.price}}</view>
+                <view class="txtGray">
+                    <view class="lineThrough">¥{{item.original_price}}</view>
+                    <view>剩余{{item.stock}}{{item.unit}}</view>
+                    <view>|</view>
+                    <view>已售{{item.sales_num}}{{item.unit}}</view>
+                </view>
+            </view>
+            <image bindtap="addCar" class="gbRig" data-index="{{index}}" data-statu="open" src="../../../../zhy/resource/images/add.jpg"></image>
+        </view>
+    </view>
+    <view class="team" wx:if="{{setting.jszc_show==1}}">
+        <image class="teamImg" mode="aspectFill" src="{{imgRoot+setting.jszc_img}}"></image>
+        <view class="teamCont">
+            <view>{{setting.jszc_name}}</view>
+            <view>合作电话：{{setting.jszc_tel}}</view>
+        </view>
+        <view bindtap="onPhoneTab" class="teamTel">拨打</view>
+    </view>
+    <view class="mask" wx:if="{{flag&&index.coupon.window==1}}"></view>
+    <view class="couponsItem" wx:if="{{flag&&index.coupon.window==1}}">
+        <view>
+            <image bindtap="close" class="ciClose" src="../../../../zhy/resource/images/close.png"></image>
+        </view>
+        <view class="ciTit">领取优惠券</view>
+        <view class="ciCont">
+            <view class="ciList" wx:for="{{coupons}}" wx:key="coupons">
+                <view class="cilLef">
+                    <view>¥{{item.money}}</view>
+                    <view>满{{item.use_money}}元可用</view>
+                </view>
+                <view class="cilRig">
+                    <view>{{item.name}}</view>
+                    <view>全平台通用</view>
+                    <view>有效期：{{item.begin_date}}-{{item.end_date}}</view>
+                </view>
+            </view>
+        </view>
+        <view bindtap="receivecoupon" class="ciBtn">立即领取</view>
+    </view>
+</view>
+<view bindtap="oclose" class="drawer_screen" data-statu="close" wx:if="{{showModalStatus}}"></view>
+<view class="drawer_box" wx:if="{{showModalStatus}}">
+    <form bindsubmit="formSubmit">
+        <view class="drawer_title">
+            <view class="goods-thumb">
+                <image class="thumb" mode="aspectFill" src="{{imgroot}}{{choiceattr.pic||olist[currIndex].pic}}"></image>
+            </view>
+            <view class="goods-detail">
+                <view class="goods-price">￥{{totalPrice}}</view>
+                <view class="goods-gg">
+                    <text wx:if="{{chooseSpec!=null}}">已选：{{chooseSpec}}</text>
+                    <text wx:if="{{chooseSpec==null}}">未选择</text>
+                    <text class="ml30">库存：{{stock}}</text>
+                </view>
+            </view>
+            <view>
+                <image bindtap="oclose" class="iconClose" data-statu="close" src="../../../../zhy/resource/images/close.png"></image>
+            </view>
+        </view>
+        <view class="drawer_content">
+            <view class="spec" wx:for="{{olist[currIndex].attrgroups}}">
+                <view class="specName">
+          {{item.name}}：
+        </view>
+                <view class="specValue">
+                    <text bindtap="spTap" class="{{itm.status?'active':''}}" data-id="{{itm.id}}" data-idx="{{idx}}" data-index="{{index}}" wx:for="{{item.attrs}}" wx:for-index="idx" wx:for-item="itm" wx:key="id">{{itm.name}}</text>
+                </view>
+            </view>
+            <view>
+                <view class="project-list">
+                    <view>数量：</view>
+                    <view class="choose">
+                        <view bindtap="reduceNum" class="reduce" data-num="{{num}}">
+              -
+            </view>
+                        <input disabled="disabled" id="chooseNum" type="number" value="{{num}}"></input>
+                        <view bindtap="addNum" class="add" data-num="{{num}}">
+              +
+            </view>
+                    </view>
+                </view>
+            </view>
+            <view class="drawer-foot">
+                <button formType="submit">加入购物车</button>
+            </view>
+        </view>
+    </form>
+</view>
+<com-fixed-btn padding="{{padding}}"></com-fixed-btn>
+<import src="../../../../zhy/template/temloading/temloading.wxml"></import>
+<template is="temloading" data wx:if="{{!show}}"></template>
+<com-footer bind:padding="getPadding" cartCount="{{cartCount}}"></com-footer>
+<wxs module="zhy" src="../../../../zhy/resource/js/countdown.wxs" />

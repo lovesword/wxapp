@@ -1,0 +1,41 @@
+<!--   time:2018-12-22 16:34:47 -->
+<view class="swiper-tab {{shouldFiexd?'shouldFiexd':''}}">
+	<block wx:for="{{nav}}" wx:for-item="item" wx:for-index="index" >
+		<view bindtap="swichNav" class="tab-item {{curHdIndex==item.status?'active':''}}" data-status="{{item.status}}">{{item.title}}</view>
+	</block>
+</view>
+<block wx:for="{{olist}}" wx:key="olist" wx:for-item="item" wx:for-index="index" >
+	<block wx:if="{{curHdIndex==1}}">
+		<view class="ciList" data-index="{{index}}">
+			<view class="cilLef">
+				<view>¥{{item.money}}</view>
+				<view>满{{item.use_money}}元可用</view>
+			</view>
+			<view class="cilRig">
+				<view>{{item.name}}</view>
+				<view>全平台通用</view>
+				<view>有效期：{{item.begin_date}}-{{item.end_date}}</view>
+				<image src="../../../../../zhy/resource/images/unused.png"></image>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{curHdIndex!=1}}">
+		<view class="ciList" data-index="{{index}}">
+			<view class="cilLef {{curHdIndex==3?'outdate':''}}">
+				<view>¥{{item.money}}</view>
+				<view>满{{item.use_money}}元可用</view>
+			</view>
+			<view class="cilRig">
+				<view>{{item.name}}</view>
+				<view>全平台通用</view>
+				<view>有效期：{{item.begin_date}}-{{item.end_date}}</view>
+				<block wx:if="{{curHdIndex==2}}">
+					<image src="../../../../../zhy/resource/images/beenused.png"></image>
+				</block>
+				<block wx:if="{{curHdIndex==3}}">
+					<image src="../../../../../zhy/resource/images/outdate.png"></image>
+				</block>
+			</view>
+		</view>
+	</block>
+</block>

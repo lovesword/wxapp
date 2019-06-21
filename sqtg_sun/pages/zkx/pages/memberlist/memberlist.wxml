@@ -1,0 +1,16 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view>
+		<view class="memberItem">
+			<block wx:for="{{olist}}" wx:key="member" wx:for-item="item" wx:for-index="index" >
+				<view class="memberList">
+					<image class="memberPhoto" mode="aspectFill" src="{{item.img}}"></image>
+				</view>
+			</block>
+		</view>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>

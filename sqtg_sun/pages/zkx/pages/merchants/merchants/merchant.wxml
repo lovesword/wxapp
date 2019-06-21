@@ -1,0 +1,67 @@
+<!--   time:2018-12-22 16:34:47 -->
+<block wx:if="{{banner.length>0}}">	<swiper autoplay circular="true" class="swiper">
+		<block wx:for="{{banner}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" >
+			<swiper-item>
+				<block wx:if="{{item.types==1}}">
+					<view bindtap="_onNavTab1" data-index="{{index}}">
+						<image class="banner-img" mode="aspectFill" src="{{item.icon}}"></image>
+					</view>
+				</block>
+				<block wx:if="{{item.types==2}}">
+					<navigator appId="{{item.appid}}" path="{{item.path}}" target="miniProgram">
+						<image class="banner-img" mode="aspectFill" src="{{item.icon}}"></image>
+					</navigator>
+				</block>
+			</swiper-item>
+		</block>
+	</swiper>
+</block>
+<form bindsubmit="formSubmit">
+	<view class="searchWrap">
+		<input bindconfirm="searchBtn" class="search" placeholder="搜索" type="text"></input>
+		<image bindtap="classify" src="/sqtg_sun/pages/zkx/resource/images/icon-classify.png"></image>
+	</view>
+</form>
+<block wx:for="{{list.data}}" wx:key="stores" wx:for-item="item" wx:for-index="index" >
+	<view class="storeList">
+		<view class="slTit">
+			<image class="storeImg" mode="aspectFill" src="{{img_root}}{{item.pic}}"></image>
+			<view class="slTitRig">
+				<view class="storeName">{{item.name}}</view>
+				<view class="sellNum">
+					<view>商品数：{{item.goods_count}}</view>
+					<view>已售：{{item.sale_count}}</view>
+				</view>
+			</view>
+			<navigator bindtap="statisticalnum" class="toStore" data-id="{{item.id}}" url="/sqtg_sun/pages/zkx/pages/merchants/merchantindex/merchantindex?id={{item.id}}">进店逛逛</navigator>
+		</view>
+		<scroll-view class="scrollView spellGroup" scrollX="true">
+			<view class="disFlex">
+				<block wx:for="{{item.hotgoodses}}" wx:key="hotgoodses" wx:for-item="item" wx:for-index="index" >
+					<navigator class="imgList" url="/sqtg_sun/pages/hqs/pages/classifydetail/classifydetail?id={{item.id}}">
+						<image mode="aspectFill" src="{{img_root}}{{item.pic}}"></image>
+						<view>{{item.name}}</view>
+						<view>￥{{item.price}}</view>
+					</navigator>
+				</block>
+			</view>
+		</scroll-view>
+	</view>
+</block>
+<block wx:if="{{list.none}}">
+	<view class="none-list">暂无商户</view>
+</block>
+<block wx:if="{{list.over&&!list.none}}">
+	<view class="none-list">没有更多</view>
+</block>
+<block wx:if="{{hotSearch}}">
+	<view class="hotSearch">
+		<block wx:if="{{!hadsearch}}">
+			<view>暂无已搜索数据</view>
+		</block>
+		<block wx:for="{{hadsearch}}" wx:key="hadsearch" wx:for-item="item" wx:for-index="index" >
+			<view bindtap="getValue" class="hsList" data-value="{{item}}">{{item}}</view>
+		</block>
+	</view>
+</block>
+<com-fixed-btn padding="{{padding}}"></com-fixed-btn>

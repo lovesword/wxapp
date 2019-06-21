@@ -1,0 +1,46 @@
+<!--   time:2018-12-22 16:34:47 -->
+<view class="swiper-tab">
+	<view bindtap="swichNav" class="tab-item {{activeIndex==0?'active':''}}" data-index="0">{{tab1}}</view>
+	<view bindtap="swichNav" class="tab-item {{activeIndex==2?'active':''}}" data-index="2">{{tab3}}</view>
+</view>
+<view hidden="{{activeIndex!=0}}">
+	<view class="goodsItem">
+		<block wx:for="{{storelist}}" wx:key="storelist" wx:for-item="item" wx:for-index="index" >
+			<view class="goodsList">
+				<navigator url="/sqtg_sun/pages/hqs/pages/classifydetail/classifydetail?id={{item.goods_id}}">
+					<image class="glImg" mode="aspectFill" src="{{img_root+item.goods_pic}}"></image>
+					<view class="glTit">
+						<block wx:if="{{item.goods_store_id==0}}">
+							<text>自营</text>
+						</block>{{item.goods_name}}					</view>
+				</navigator>
+				<view class="glMoney">
+					<view>￥{{item.goods_price}}</view>
+					<view bindtap="cancelcollection" data-index="{{index}}" id="{{item.id}}">取消收藏</view>
+				</view>
+			</view>
+		</block>
+	</view>
+</view>
+<view hidden="{{activeIndex!=1}}">
+	<view class="noMore">暂无收藏商家</view>
+</view>
+<view hidden="{{activeIndex!=2}}">
+	<block wx:for="{{topiclist}}" wx:key="topiclist" wx:for-item="item" wx:for-index="index" >
+		<view class="topicList">
+			<view class="topicTit">
+				<view>{{item.topic_title}}</view>
+				<view bindtap="cancelcollection" data-index="{{index}}" id="{{item.id}}">取消收藏</view>
+			</view>
+			<navigator url="/sqtg_sun/pages/zkx/pages/topic/topicdetail/topicdetail?id={{item.topic_id}}">
+				<image class="topicImg" mode="aspectFill" src="{{img_root+item.topic_pic}}"></image>
+				<view class="topicBot">
+					<view>{{item.see_count}}人浏览过</view>
+				</view>
+			</navigator>
+		</view>
+	</block>
+	<block wx:if="{{nomore}}">
+		<view class="noMore">没有更多</view>
+	</block>
+</view>

@@ -1,0 +1,232 @@
+[is="zhy/component/comFooter/comFooter"] {
+    font-size: 20rpx;
+}
+
+@import "zhy/template/temloading/temloading.wxss";
+
+@import "zhy/template/wxParse/wxParse.wxss";
+
+.foot-padding {
+    padding-bottom: 120rpx;
+}
+
+.none-list {
+    height: 88rpx;
+    line-height: 88rpx;
+    text-align: center;
+    font-size: 28rpx;
+}
+
+page,navigator,view,text,image {
+    margin: 0;
+    padding: 0;
+}
+
+page {
+    font-size: 26rpx;
+}
+
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexAlignc {
+    display: flex;
+    align-items: center;
+}
+
+.flexSB {
+    display: flex;
+    justify-content: space-between;
+}
+
+.disFlex {
+    display: flex;
+}
+
+.bort20 {
+    border-top: 20rpx solid #efeff4;
+}
+
+.txtRed {
+    color: #e9472c;
+}
+
+.txtRed30 {
+    color: #e9472c;
+    font-size: 30rpx;
+}
+
+.txtBlue {
+    color: #8db4ff;
+}
+
+.txtBlue30 {
+    color: #8db4ff;
+    font-size: 30rpx;
+}
+
+.c9 {
+    color: #999;
+}
+
+.c922 {
+    color: #999;
+    font-size: 24rpx;
+}
+
+.mAround10 {
+    margin: 0 10rpx;
+}
+
+.mt5 {
+    margin-top: 5rpx;
+}
+
+.ml10 {
+    margin-left: 10rpx;
+}
+
+.mr10 {
+    margin-right: 10rpx;
+}
+
+.mt10 {
+    margin-top: 10rpx;
+}
+
+.ml20 {
+    margin-left: 20rpx;
+}
+
+.mr20 {
+    margin-right: 20rpx;
+}
+
+.mt20 {
+    margin-top: 20rpx;
+}
+
+.ml30 {
+    margin-left: 30rpx;
+}
+
+.fs22 {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.borBox {
+    box-sizing: border-box;
+}
+
+.abMore {
+    position: absolute;
+    right: 0;
+}
+
+.bgw {
+    background: #fff;
+}
+
+.fs30 {
+    font-size: 30rpx;
+}
+
+.pr20 {
+    box-sizing: border-box;
+    padding-right: 20rpx;
+}
+
+.lineThrough {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 24rpx;
+}
+
+.rel {
+    position: relative;
+}
+
+.ab {
+    position: absolute;
+}
+
+.abr {
+    position: absolute;
+    right: 0;
+}
+
+.pt15 {
+    padding-top: 15rpx;
+}
+
+.abr20 {
+    position: absolute;
+    right: 20rpx;
+}
+
+.pb20 {
+    padding-bottom: 20rpx;
+}
+
+.pt20 {
+    padding-top: 20rpx;
+}
+
+.pt10 {
+    padding-top: 10rpx;
+}
+
+.pad30 {
+    padding: 0 20rpx;
+}
+
+.pb30 {
+    padding-bottom: 30rpx;
+}
+
+.oshow {
+    display: block;
+}
+
+.ohide {
+    display: none;
+}
+
+.borBot {
+    border-bottom: 1rpx solid #eee;
+}
+
+.flex1 {
+    flex: 1;
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+    background: rgba(0,0,0,0.3);
+}
+
+.wxParse-img {
+    display: block;
+    width: 100%!important;
+}
+
+.hei80 {
+    height: 80rpx;
+}

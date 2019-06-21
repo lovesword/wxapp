@@ -1,0 +1,114 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view>
+		<view class="posRel">
+			<image class="miBanner" mode="aspectFill" src="{{imgroot}}{{shop.pic_bg}}"></image>
+			<view class="miHeader">
+				<image class="storeImg" mode="aspectFill" src="{{imgroot}}{{shop.pic}}"></image>
+				<view class="slTitRig">
+					<view class="storeName">{{shop.name}}</view>
+					<view class="sellNum">
+						<view>商品数：{{shop.goods_count}}</view>
+						<view>已售：{{shop.sale_count}}</view>
+					</view>
+				</view>
+				<view bindtap="toggleService" class="service">
+					<image src="/sqtg_sun/pages/zkx/resource/images/service2.png"></image>
+					<view>客服</view>
+				</view>
+			</view>
+		</view>
+		<block wx:if="{{service}}">
+			<view bindtap="toggleService" class="mask"></view>
+		</block>
+		<block wx:if="{{service}}">
+			<view class="servicePop">
+				<image bindtap="toggleService" class="close" src="/sqtg_sun/pages/zkx/resource/images/close.png"></image>
+				<view class="spTit">联系客服</view>
+				<view class="spTxt">
+					<view>店家电话：</view>
+					<view>{{shop.tel}}</view>
+				</view>
+				<view class="spBtn">
+					<view bindtap="copyTxt">一键复制</view>
+					<view bindtap="getDialog">拨打电话</view>
+				</view>
+			</view>
+		</block>
+		<view class="merTab">
+			<view bindtap="toStoreindex" class="tabList">
+				<image src="/sqtg_sun/pages/zkx/resource/images/icon-merchants.png"></image>
+				<view>店铺首页</view>
+			</view>
+			<view bindtap="toAllgoods" class="tabList">
+				<image src="/sqtg_sun/pages/zkx/resource/images/goodsAll.png"></image>
+				<view>全部商品</view>
+			</view>
+			<block wx:if="{{control.plugin_6}}">
+				<view bindtap="onSpellTab" class="tabList">
+					<image src="/zhy/resource/images/store/activity.png"></image>
+					<view>全部拼团</view>
+				</view>
+			</block>
+			<block wx:if="{{control.plugin_7}}">
+				<view bindtap="onSeckillTab" class="tabList">
+					<image src="/zhy/resource/images/store/seckill.png"></image>
+					<view>全部秒杀</view>
+				</view>
+			</block>
+			<view bindtap="toStoredetail" class="tabList">
+				<image src="/sqtg_sun/pages/zkx/resource/images/storeDetail.png"></image>
+				<view>店铺信息</view>
+			</view>
+		</view>
+		<view class="glNavwrap">
+			<view bindtap="getClassify" class="allClassify">分类</view>
+			<view class="glNav">
+				<view bindtap="spTap" class="new {{spindex==0?'active':''}}" data-field="create_time" data-index="0">最新</view>
+				<view bindtap="spTap" class="price {{spindex==1?'active':''}}" data-field="price" data-index="1">
+					<view class="priceLef">价格</view>
+					<view class="priceRig">
+						<block wx:if="{{spindex!=1}}">
+							<view class="arrowup">
+								<image src="/sqtg_sun/pages/zkx/resource/images/arrowup.png"></image>
+								<image src="/sqtg_sun/pages/zkx/resource/images/arrowdown.png"></image>
+							</view>
+						</block>
+						<block wx:if="{{spindex==1&&orderBy=='asc'}}">
+							<view class="arrowup">
+								<image src="/sqtg_sun/pages/zkx/resource/images/arrowup.png"></image>
+								<image src="/sqtg_sun/pages/zkx/resource/images/arrowdownActive.png"></image>
+							</view>
+						</block>
+						<block wx:if="{{spindex==1&&orderBy=='desc'}}">
+							<view class="arrowup">
+								<image src="/sqtg_sun/pages/zkx/resource/images/arrowupActive.png"></image>
+								<image src="/sqtg_sun/pages/zkx/resource/images/arrowdown.png"></image>
+							</view>
+						</block>
+					</view>
+				</view>
+				<view bindtap="spTap" class="sales {{spindex==2?'active':''}}" data-field="sales_num2" data-index="2">销量</view>
+			</view>
+		</view>
+		<view class="goodsItem">
+			<block wx:for="{{list.data}}" wx:key="{{item.id}}" wx:for-item="item" wx:for-index="index" >
+				<navigator class="goodsList" url="/sqtg_sun/pages/hqs/pages/classifydetail/classifydetail?id={{item.id}}">
+					<image class="gsImg" mode="aspectFill" src="{{imgroot}}{{item.pic}}"></image>
+					<view class="gsTit">{{item.name}}</view>
+					<view class="gsMoney">￥{{item.price}}</view>
+				</navigator>
+			</block>
+		</view>
+		<block wx:if="{{list.over&&!list.none}}">
+			<view class="noMore">没有更多了</view>
+		</block>
+		<block wx:if="{{list.none}}">
+			<view class="none-list">暂无商品</view>
+		</block>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>

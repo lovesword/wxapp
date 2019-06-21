@@ -1,0 +1,58 @@
+<!--   time:2018-12-22 16:34:46 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view>
+		<view class="swiper-tab">
+			<block wx:for="{{nav}}" wx:for-item="item" wx:for-index="index" >
+				<view bindtap="swichNav" class="tab-item {{curHdIndex==item.state?'active':''}}" data-state="{{item.state}}">{{item.title}}</view>
+			</block>
+		</view>
+		<view bindtap="choice" class="choice">
+			<block wx:if="{{choicechecked}}">
+				<image data-status="choicechecked" src="../../../../../zhy/resource/images/edit.png"></image>
+			</block>点击选择		</view>
+		<view class="oItem">
+			<block wx:for="{{olist}}" wx:key="item.id" wx:for-item="item" wx:for-index="index" >
+				<view bindtap="getSinglePlat" class="olist" data-index="{{index}}">
+					<view class="checkImg {{choicechecked?'':'checkHide'}}">
+						<checkbox checked="{{item.status}}"></checkbox>
+					</view>
+					<view class="olCont">
+						<image class="olcLef" mode="aspectFill" src="{{imgroot}}{{item.pic}}"></image>
+						<view class="olcRig">
+							<block wx:if="{{item.store_name}}">
+								<view class="storeName">{{item.store_name}}</view>
+							</block>
+							<block wx:if="{{item.store_id==0}}">
+								<view class="storeName">平台</view>
+							</block>
+							<view class="olcName ellipsis">{{item.name}}</view>
+							<view class="stock">销量：{{item.sales_num}}</view>
+							<view class="price">
+								<view class="v1">￥{{item.price}}</view>
+								<view class="v2">预计抽成：￥{{item.leader_money}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+		<block wx:if="{{choicechecked}}">
+			<view class="hgFooter">
+				<label bindtap="getAllGoods" class="hgCheckall">
+					<checkbox checked="{{checkNum==olist.length}}" value=""></checkbox>
+					<view class="slectAll">全选</view>
+				</label>
+				<block wx:if="{{curHdIndex==0}}">
+					<view bindtap="addChoice" class="hgBtn">选中添加</view>
+				</block>
+				<block wx:if="{{curHdIndex==1}}">
+					<view bindtap="deleteGoods" class="hgBtn">下架商品</view>
+				</block>
+			</view>
+		</block>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>

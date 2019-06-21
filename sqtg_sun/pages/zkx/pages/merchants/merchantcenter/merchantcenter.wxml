@@ -1,0 +1,49 @@
+<!--   time:2018-12-22 16:34:47 -->
+<import  src="/zhy/template/temloading/temloading.wxml"  />
+<block wx:if="{{show}}">
+	<view class="{{padding?'foot-padding':''}}">
+		<view class="myHeader rel">
+			<view class="myUserImg">
+				<image mode="aspectFill" src="{{user.img}}"></image>
+			</view>
+			<text class="myUserName">{{mystore.name}}</text>
+		</view>
+		<view class="myHei158 flexAlignc">
+			<view class="sjcNum">
+				<view>{{mystore.today_sum||0}}</view>
+				<view>今日收入</view>
+			</view>
+			<view class="sjcNum">
+				<view>{{mystore.yesterday_sum||0}}</view>
+				<view>昨日收入</view>
+			</view>
+		</view>
+		<view class="mt20 myFinance">
+			<view class="myOrderTit">我的财务</view>
+			<view class="myfCont flexAlignc">
+				<view class="myfContLef flexAlignc">
+					<view class="myflItem">
+						<view>{{mystore.today_sum||0}}</view>
+						<view>累计收入</view>
+					</view>
+					<block wx:if="{{storeinfo.id!=0}}">
+						<view class="myflItem">
+							<view>{{mystore.money||0}}</view>
+							<view>可提现的</view>
+						</view>
+					</block>
+				</view>
+				<block wx:if="{{(mystore.withdraw_switch&&mystore.withdraw_switch!=0)&&mystore.money>0}}">					<view class="myfContRig">
+						<navigator class="withdrawal" url="/sqtg_sun/pages/zkx/pages/merchants/withdrawal/withdrawal?id={{mystore.id}}">提现</navigator>
+					</view>
+				</block>
+			</view>
+		</view>
+	</view>
+</block>
+<block wx:if="{{!show}}">
+	<block></block>
+</block>
+<block wx:if="{{showFoot}}">
+	<com-footer bind:padding="getPadding" cartCount="{{cartCount}}" currURL="/sqtg_sun/pages/zkx/pages/merchants/merchantenter/merchantenter"></com-footer>
+</block>

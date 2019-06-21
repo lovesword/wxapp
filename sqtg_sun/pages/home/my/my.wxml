@@ -1,0 +1,100 @@
+<view class="{{padding?'foot-padding':''}}" wx:if="{{show}}">
+    <image class="indexBanner" mode="aspectFill" src="../../../../zhy/resource/images/indexBanner.png"></image>
+    <view class="myBanner">
+        <view bindtap="qrcode" class="posTake">
+            <image src="../../../../zhy/resource/images/takegoods.png"></image>
+            <view>点击取货</view>
+        </view>
+        <view class="myBannerab">
+            <image class="userImg" src="{{info.userinfo.img}}"></image>
+            <view class="flex1">
+                <view class="userName">
+                    <text>{{info.userinfo.name}}</text>
+                    <text>ID:{{info.userinfo.id}}</text>
+                </view>
+                <view class="userPhone">
+                    <view>{{info.userinfo.tel}}</view>
+                    <view style="display:none">修改手机号码</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="myOrder">
+        <view class="myOrderTit">
+            <view>我的订单</view>
+            <navigator url="/sqtg_sun/pages/public/pages/myorder/myorder?id=0">查看全部</navigator>
+            <image src="../../../../zhy/resource/images/arrowRig.png"></image>
+        </view>
+        <view class="myOrderCont">
+            <navigator class="mocList1" url="/sqtg_sun/pages/public/pages/myorder/myorder?id=1">
+                <image src="../../../../zhy/resource/images/my/order1.png"></image>
+                <view>待支付</view>
+                <text class="orderCount" wx:if="{{info.order_count.state1}}">{{info.order_count.state1}}</text>
+            </navigator>
+            <navigator class="mocList1" url="/sqtg_sun/pages/public/pages/myorder/myorder?id=2">
+                <image src="../../../../zhy/resource/images/my/order2.png"></image>
+                <view>待配送</view>
+                <text class="orderCount" wx:if="{{info.order_count.state2}}">{{info.order_count.state2}}</text>
+            </navigator>
+            <navigator class="mocList1" url="/sqtg_sun/pages/public/pages/myorder/myorder?id=3">
+                <image src="../../../../zhy/resource/images/my/order3.png"></image>
+                <view>配送中</view>
+                <text class="orderCount" wx:if="{{info.order_count.state3}}">{{info.order_count.state3}}</text>
+            </navigator>
+            <navigator class="mocList1" url="/sqtg_sun/pages/public/pages/myorder/myorder?id=4">
+                <image src="../../../../zhy/resource/images/my/order5.png"></image>
+                <view>待自提</view>
+                <text class="orderCount" wx:if="{{info.order_count.state4}}">{{info.order_count.state4}}</text>
+            </navigator>
+            <navigator class="mocList1" url="/sqtg_sun/pages/public/pages/myorder/myorder?id=5">
+                <image src="../../../../zhy/resource/images/my/order4.png"></image>
+                <view>已完成</view>
+            </navigator>
+        </view>
+    </view>
+    <view class="myOrderItem">
+        <view bindtap="qrcode" class="myOrderList">提货二维码</view>
+        <navigator class="myOrderList" url="/sqtg_sun/pages/zkx/pages/mycoupons/mycoupons">
+            <view>我的优惠券</view>
+            <view>{{info.couponCount}}张</view>
+            <image src="../../../../zhy/resource/images/arrowRig.png"></image>
+        </navigator>
+        <navigator class="myOrderList" url="/sqtg_sun/pages/zkx/pages/merchants/merchantcenter/merchantcenter" wx:if="{{info.store_switch>0&&info.has_store==true}}">
+            <view>商家后台</view>
+            <image src="../../../../zhy/resource/images/arrowRig.png"></image>
+        </navigator>
+        <navigator class="myOrderList" url="/sqtg_sun/pages/zkx/pages/merchants/merchantenter/merchantenter" wx:if="{{info.store_switch>0&&info.has_store==false}}">
+            <view>商家入驻</view>
+            <image src="../../../../zhy/resource/images/arrowRig.png"></image>
+        </navigator>
+        <navigator class="myOrderList" url="/sqtg_sun/pages/zkx/pages/headcenter/headcenter" wx:if="{{info.is_leader==true}}">
+            <view>团长后台</view>
+            <image src="../../../../zhy/resource/images/arrowRig.png"></image>
+        </navigator>
+        <navigator class="myOrderList" url="/sqtg_sun/pages/zkx/pages/headapplication/headapplication" wx:if="{{info.is_leader==false}}">
+            <view>团长入驻</view>
+            <image src="../../../../zhy/resource/images/arrowRig.png"></image>
+        </navigator>
+    </view>
+    <view bindtap="close" class="omask" wx:if="{{qrcode}}"></view>
+    <view class="getGoods" wx:if="{{qrcode}}">
+        <view class="ggTit">提货二维码</view>
+        <canvas canvasId="qrcode" class="qrcode"></canvas>
+        <view>提货时，向团长出示提货二维码</view>
+    </view>
+    <view bindtap="phoneGrant" class="isMaskPhone" wx:if="{{phoneGrant}}"></view>
+    <view id="isPhone" wx:if="{{phoneGrant}}">
+        <view class="loginTitle">微信授权</view>
+        <view class="shopImg">
+            <image src="{{imgroot}}{{setting.pt_pic}}" wx:if="{{setting.pt_pic}}"></image>
+            <span>{{shop.pt_name}}将获取你的手机号</span>
+        </view>
+        <view class="isLoginBtn">
+            <navigator bindtap="toSetphonenum" url="/sqtg_sun/pages/zkx/pages/setphonenum/setphonenum?id=my">取消</navigator>
+            <button bindgetphonenumber="getPhoneNumber" openType="getPhoneNumber">同意</button>
+        </view>
+    </view>
+</view>
+<import src="../../../../zhy/template/temloading/temloading.wxml"></import>
+<template is="temloading" data wx:if="{{!show}}"></template>
+<com-footer bind:padding="getPadding" cartCount="{{cartCount}}"></com-footer>
